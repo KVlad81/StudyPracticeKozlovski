@@ -1,0 +1,11 @@
+commit 0b48fe83bde5a9212565f82670a092f09a73328d
+Author: Vlad <kozlovskivlad@yandex.ru>
+Date:   Thu Feb 8 23:55:18 2018 +0300
+
+    add status.txt
+
+commit 7e0ca1338cde487b492464439477e66e0e90a1f8
+Author: Vlad <kozlovskivlad@yandex.ru>
+Date:   Tue Feb 6 19:54:52 2018 +0300
+
+    add .gitignore
