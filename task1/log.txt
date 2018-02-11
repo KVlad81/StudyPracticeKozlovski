@@ -1,3 +1,15 @@
+commit ed2a55ee394a3146082d187bd57390ede740049e
+Author: Vlad <kozlovskivlad@yandex.ru>
+Date:   Fri Feb 9 00:28:19 2018 +0300
+
+    new status at status.txt
+
+commit 15a1b4125ba23b8c04bd47a0c4c201b52cc5432f
+Author: Vlad <kozlovskivlad@yandex.ru>
+Date:   Fri Feb 9 00:01:55 2018 +0300
+
+    add log.txt
+
 commit 0b48fe83bde5a9212565f82670a092f09a73328d
 Author: Vlad <kozlovskivlad@yandex.ru>
 Date:   Thu Feb 8 23:55:18 2018 +0300

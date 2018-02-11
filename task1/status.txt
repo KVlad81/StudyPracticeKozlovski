@@ -1,20 +1,9 @@
-На ветке master
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
 
-Начальный коммит
+	modified:   task1/log.txt
+	modified:   task1/status.txt
 
-Неотслеживаемые файлы:
-  (используйте «git add <файл>…», чтобы добавить в то, что будет включено в коммит)
-
-	task1/
-
-ничего не добавлено в коммит, но есть неотслеживаемые файлы (используйте «git add», чтобы отслеживать их)
-На ветке master
-Неотслеживаемые файлы:
-  (используйте «git add <файл>…», чтобы добавить в то, что будет включено в коммит)
-
-	task1/
-
-ничего не добавлено в коммит, но есть неотслеживаемые файлы (используйте «git add», чтобы отслеживать их)
-На ветке master
-Ваша ветка обновлена в соответствии с «origin/master».
-нечего коммитить, нет изменений в рабочем каталоге
+no changes added to commit (use "git add" and/or "git commit -a")
