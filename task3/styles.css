@@ -1,0 +1,204 @@
+.header{
+	height: 73px;
+	width: 100%;
+	background-color: rgb(198, 08, 00);
+	display: flex;
+	position: fixed;
+	align-items: center;
+}
+
+html, #main{
+    margin: 0px 0px 0px 0px;
+    height: 100%;
+}
+
+body{
+    margin: 0px 0px 0px 0px;
+    height: 100%;
+	background-image: url('images/1352270863_1917-oktiabr4.jpg');
+	padding-bottom: 0px;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-attachment: fixed; 
+}
+
+
+.footer{
+	height: 53px;
+	width: 100%;
+	background-color: rgb(144, 07, 08);
+	display: flex;
+	position: fixed;
+	bottom: 0;
+	align-items: center;
+}
+
+.soviet-name-header, .soviet-name-footer, .username{
+	font-size: 26px;
+	vertical-align: middle;
+	font-family: 'Anton', sans-serif;
+}
+
+.username{
+	color: rgb(255, 170, 00);
+}
+
+.soviet-name-header{
+	color: rgb(255, 255, 00);
+}
+
+.soviet-name-footer{
+	color: rgb(170, 80, 08);
+	margin-right: auto;
+	margin-left: 0px;
+}
+
+.base-button-style, .load-more{
+	background-color: rgb(153, 04, 01);
+	border-color: rgba(00, 00, 00, 00);
+	color: rgb(255, 255, 00);
+	border-radius: 19px;
+	height: 28px;
+	width: 116px;
+	font-size: 16px;
+	font-family: 'Helvetica', sans-serif;
+	margin-left: 10px;
+}
+
+.user-info{
+	text-align: right;
+	margin-left: auto;
+	margin-right: 10px;
+}
+
+.my-info{
+	color: rgb(170, 80, 08);
+	font-family: 'Helvetica', sans-serif;
+	font-size: 12px;
+	vertical-align: middle;
+	text-align: center;
+	margin-right: 20%;
+	margin-left: auto;
+}
+
+.update{
+	color: rgb(170, 80, 08);
+	font-family: 'Helvetica', sans-serif;
+	font-size: 12px;
+	vertical-align: middle;
+	text-align: center;
+	margin-right: 10px;
+	margin-left: auto;	
+}
+
+#main{
+	align-items: center;
+    flex: 1 0 auto;
+    margin-right:auto;
+    display:flex;
+	flex-direction: row;
+	width: 100%;
+	height: 80%;
+}
+
+#feed{
+	align-items: flex-start;
+    flex: 1 0 auto;
+    margin-right:auto;
+    margin-top:140px;
+    display:flex;
+	flex-direction: column;
+	width: 60%;
+	height: 100%;
+}
+
+.post{
+	max-width: 384px;
+    max-height: 800px;
+    display: flex;
+    align-self: left;
+    flex-direction: column;
+    margin:10px 10px 10px 10px;
+    padding: 10px 20px 20px 20px;
+	background-color: #ffffff;
+	font-family: 'Annie Use Your Telescope', cursive;
+	height: 90%;
+	width: 100%;
+	font-size: 20px;
+	align-items: center;	
+}
+
+.time{
+	font-size: 20px;
+	margin-right: 0px;
+	margin-left: auto;
+}
+
+.toolbar{
+	height: 8%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.image-size{
+	padding: 10px 10px 10px 10px;
+	height: 80%;
+}
+
+.post-username{
+	text-align: center;
+	width: 60%;
+}
+
+.description-bar{
+	height: 30%;
+	width: 100%;
+	display: flex;
+	align-items: flex-start;
+}
+
+.description{
+	width: 60%;
+	height: 100%;
+	max-height: 100%;
+}
+
+.hashtags{
+	width: 30%;
+	height: 100%;
+	max-height: 100%;
+}
+
+.filter{
+	type: text;
+	class: filter;
+	width: 100%;
+	height: 20px;
+	margin: 15px 15px 15px 15px;
+	background-color: rgba(255, 255, 255, 0.59);
+	border-radius: 15px;
+	color: #000000;
+}
+
+.filters{
+	width: 33%;
+	height: 33%;
+	margin-left: 33%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	vertical-align: middle;
+}
+
+.filters-wrapper{
+	height: 100%;
+	width: 40%;
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+}
+
+.emptyline{
+	color: rgba(00, 00, 00, 0);
+}
