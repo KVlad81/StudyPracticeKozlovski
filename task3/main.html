@@ -16,120 +16,33 @@
 			<div class='soviet-name-header'>
 				Sovietgram
 			</div>
-			<button class='base-button-style'>
+			<button class='base-button-style' style='display : none'>
 				New post
 			</button>
 			<div class='user-info'>
 				<div class='username'>
-					Username
+					Guest
 				</div>
 				<button class='base-button-style' height='22px'>
-					Emigrate
+					Login
 				</button>
 			</div>
 		</div>
 		<div class='main'>
 			<div class='filters-wrapper'>
 				<div class='filters'>
-					<input class="filter" placeholder="Filter by name...">
-					<input class="filter" placeholder="Filter by date...">
-					<input class="filter" placeholder="Filter by hashtag...">
+					<input class="filter" list='authors-tip' placeholder="Filter by name...">
+					<datalist id='authors-tip'></datalist>
+
+					<input class="filter" type='date' placeholder="Filter by date...">
+
+					<input class="filter" list='hashtags-tip' placeholder="Filter by hashtag...">
+					<datalist id='hashtags-tip'></datalist>
 				</div>
 			</div>
 			<div class='feed'>
-				<div  class='post'>
-					<div class='time'>
-						2:28 25.02.2018
-					</div>
-					<img src="images/Pavel_Morozov.jpg" height='300px' width='250px'>
-					<div class='toolbar'>
-						<img src="images/star.png" class='image-size'>
-						Lyapota
-						<div class='post-username'>
-							Username
-						</div>
-						<img src="images/img_83432.png" class='image-size'>
-					</div>
-					<div class='description-bar'>
-						<div class='description'>
-							My child photo
-						</div>
-						<div class='hashtags'>
-							#cute #handsome
-						</div>
-						<img src="images/edit.png" width='7%'>
-					</div>
-				</div>
-
-				<div  class='post'>
-					<div class='time'>
-						2:28 25.02.2018
-					</div>
-					<img src="images/Pavel_Morozov.jpg" height='300px' width='250px'>
-					<div class='toolbar'>
-						<img src="images/star.png" class='image-size'>
-						Lyapota
-						<div class='post-username'>
-							Username
-						</div>
-						<img src="images/img_83432.png" class='image-size'>
-					</div>
-					<div class='description-bar'>
-						<div class='description'>
-							My child photo
-						</div>
-						<div class='hashtags'>
-							#cute #handsome
-						</div>
-						<img src="images/edit.png" width='7%'>
-					</div>
-				</div>
-				<div  class='post'>
-					<div class='time'>
-						2:28 25.02.2018
-					</div>
-					<img src="images/Pavel_Morozov.jpg" height='300px' width='250px'>
-					<div class='toolbar'>
-						<img src="images/star.png" class='image-size'>
-						Lyapota
-						<div class='post-username'>
-							Username
-						</div>
-						<img src="images/img_83432.png" class='image-size'>
-					</div>
-					<div class='description-bar'>
-						<div class='description'>
-							My child photo
-						</div>
-						<div class='hashtags'>
-							#cute #handsome
-						</div>
-						<img src="images/edit.png" width='7%'>
-					</div>
-				</div>
-				<div  class='post'>
-					<div class='time'>
-						2:28 25.02.2018
-					</div>
-					<img src="images/Pavel_Morozov.jpg" height='300px' width='250px'>
-					<div class='toolbar'>
-						<img src="images/star.png" class='image-size'>
-						Lyapota
-						<div class='post-username'>
-							Username
-						</div>
-						<img src="images/img_83432.png" class='image-size'>
-					</div>
-					<div class='description-bar'>
-						<div class='description'>
-							My child photo
-						</div>
-						<div class='hashtags'>
-							#cute #handsome
-						</div>
-						<img src="images/edit.png" width='7%'>
-					</div>
-				</div>
+				
+				
 				<button class='base-button-style'>
 					Load more
 				</button>
@@ -151,5 +64,6 @@
 				Last update 25.02.2018
 			</div>
 		</div>
+	<script src="../DOM/dom.js"></script>
 	</body>
 </html>

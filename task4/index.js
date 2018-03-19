@@ -53,7 +53,7 @@ let func = (function (params) {
             if (arguments.length < 3) {
                 return photoPosts.slice(skip, skip+top);
             } else {
-                return photoPosts.slice(skip, skip+top).filter(function(post) {
+                let extraPosts =  photoPosts.slice(skip, skip+top).filter(function(post) {
                     return !((filterConfig.hasOwnProperty('author') &&  
                         post.author !== filterConfig.author) ||
                         (filterConfig.hasOwnProperty('createdAt') && 
@@ -65,6 +65,7 @@ let func = (function (params) {
                                     return post.hashTags.includes(hashTag)
                                 }))));
                 });
+                return extraPosts;
             }
         },
 
@@ -72,6 +73,26 @@ let func = (function (params) {
             return photoPosts.find(function(element) {
                 return element.id === id;
             })
+        },
+
+        getAuthors: function() {
+            let authors = new Set();
+            photoPosts.filter(post => {
+                if (!authors.has(post.author))
+                    authors.add(post.author);
+            });
+            return authors;
+        },
+
+        getHashtags: function() {
+            let hashTags = new Set();
+            photoPosts.filter(post => {
+                post.hashTags.forEach(hashTag => {
+                    if (!hashTags.has(hashTag))
+                        hashTags.add(hashTag);
+                });
+            });
+            return hashTags;
         },
 
         validatePhotoPost: function (post) {
@@ -114,6 +135,20 @@ let func = (function (params) {
                 return false;
             }
         },
+
+        setLike: function (username, id) {
+            let post = this.getPhotoPost(id);
+            let userIndex = post.likes.findIndex(user => {
+                return user === username;
+            });
+            if (userIndex === -1) {
+                post.likes.push(username);
+                return true;
+            } else {
+                post.likes.splice(userIndex, 1);
+                return false;
+            }
+        }
     };
 })()
 
@@ -122,7 +157,7 @@ for (let i = 0; i < 15; i++) {
         func.createPhotoPost('description of post #' + i,
             new Date('2018-02-' + parseInt(i / 2, 10)),
                 'Author' + parseInt(i / 3, 10),
-                'photoLink.png',
+                'images/Pavel_Morozov.jpg',
                 ['' + i, 'hashtag'+i],
                 [''+(i+1), ''+(i+2)]
             )
@@ -130,6 +165,8 @@ for (let i = 0; i < 15; i++) {
     );
 }
 
+window.posts = func;
+/*
 console.log('\n-func.getPhotoPosts')
 console.log('top 10 posts:');
 console.log(func.getPhotoPosts());
@@ -238,3 +275,4 @@ console.log('removing post with id 3');
 console.log(func.removePhotoPost('3'));
 console.log('trying to get post with id 3');
 console.log(func.getPhotoPost('3'));
+*/
