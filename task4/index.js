@@ -3,7 +3,7 @@ var photoPosts = [];
 let func = (function (params) {
     function compareDates(a, b) {
         return b.createdAt - a.createdAt;
-    }   
+    }
     return {
         currentId: 0,
 
@@ -22,13 +22,8 @@ let func = (function (params) {
         validateAuthor: function (author) {
             return typeof author === 'string' && author !== '';
         },
-
-        validateCreatedAt: function (createdAt) {
-            return createdAt instanceof Date && createdAt <= new Date();
-        },
-
         validateHashtags: function (hashTags) {
-            return hashTags instanceof Array && hashTags.every(function(hashTag) {
+            return hashTags instanceof Array && hashTags.every(function (hashTag) {
                 return typeof hashTag === 'string';
             })
         },
@@ -43,27 +38,27 @@ let func = (function (params) {
 
         validateEditPost: function (editPost) {
             return (editPost.hasOwnProperty('description') && this.validateDescription(editPost.description)) ||
-            (editPost.hasOwnProperty('hashTags') && this.validateHashtags(editPost.hashTags)) || 
-            (editPost.hasOwnProperty('photoLink') && this.validatePhotoLink(editPost.photoLink)) ||
-            !editPost.hasOwnProperty('description') && 
-            !editPost.hasOwnProperty('hashTags') && 
-            !editPost.hasOwnProperty('photoLink');
+                (editPost.hasOwnProperty('hashTags') && this.validateHashtags(editPost.hashTags)) ||
+                (editPost.hasOwnProperty('photoLink') && this.validatePhotoLink(editPost.photoLink)) ||
+                !editPost.hasOwnProperty('description') &&
+                !editPost.hasOwnProperty('hashTags') &&
+                !editPost.hasOwnProperty('photoLink');
 
         },
 
         getPhotoPosts: function (skip = 0, top = 10, filterConfig) {
             if (arguments.length < 3) {
-                return photoPosts.slice(skip, skip+top);
+                return photoPosts.slice(skip, skip + top);
             } else {
-                let extraPosts =  photoPosts.slice(skip, skip+top).filter(function(post) {
-                    return !((filterConfig.hasOwnProperty('author') &&  
+                let extraPosts = photoPosts.slice(skip, skip + top).filter(function (post) {
+                    return !((filterConfig.hasOwnProperty('author') &&
                         post.author !== filterConfig.author) ||
-                        (filterConfig.hasOwnProperty('createdAt') && 
+                        (filterConfig.hasOwnProperty('createdAt') &&
                             (!(filterConfig.createdAt instanceof Date) ||
-                             filterConfig.createdAt.getTime() !==  post.createdAt.getTime())) ||
-                        (filterConfig.hasOwnProperty('hashTags') && 
-                            (!(filterConfig.hashTags instanceof Array) || 
-                                !filterConfig.hashTags.every(function(hashTag) {
+                                filterConfig.createdAt >= post.createdAt)) ||
+                        (filterConfig.hasOwnProperty('hashTags') &&
+                            (!(filterConfig.hashTags instanceof Array) ||
+                                !filterConfig.hashTags.every(function (hashTag) {
                                     return post.hashTags.includes(hashTag)
                                 }))));
                 });
@@ -72,12 +67,12 @@ let func = (function (params) {
         },
 
         getPhotoPost: function (id) {
-            return photoPosts.find(function(element) {
+            return photoPosts.find(function (element) {
                 return element.id === id;
             })
         },
 
-        getAuthors: function() {
+        getAuthors: function () {
             let authors = new Set();
             photoPosts.filter(post => {
                 if (!authors.has(post.author))
@@ -86,7 +81,7 @@ let func = (function (params) {
             return authors;
         },
 
-        getHashtags: function() {
+        getHashtags: function () {
             let hashTags = new Set();
             photoPosts.filter(post => {
                 post.hashTags.forEach(hashTag => {
@@ -98,12 +93,12 @@ let func = (function (params) {
         },
 
         validatePhotoPost: function (post) {
-            return (typeof post.id === 'string') && 
-                    this.validateDescription(post.description) &&
-                    this.validateCreatedAt(post.createdAt) && 
-                    this.validateAuthor(post.author) &&
-                    this.validatePhotoLink(post.photoLink) &&
-                    this.validateHashtags(post.hashTags);
+            return (typeof post.id === 'string') &&
+                this.validateDescription(post.description) &&
+                this.validateCreatedAt(post.createdAt) &&
+                this.validateAuthor(post.author) &&
+                this.validatePhotoLink(post.photoLink) &&
+                this.validateHashtags(post.hashTags);
         },
 
         addPhotoPost: function (post) {
@@ -128,9 +123,9 @@ let func = (function (params) {
         },
 
         removePhotoPost: function (id) {
-            let index = photoPosts.findIndex(function(element) { 
+            let index = photoPosts.findIndex(function (element) {
                 return element.id === id;
-             });
+            });
             if (index > -1) {
                 photoPosts.splice(index, 1);
                 return true;
@@ -151,20 +146,24 @@ let func = (function (params) {
                 post.likes.splice(userIndex, 1);
                 return false;
             }
-        }
+        },
+
+        validateCreatedAt: function (createdAt) {
+            return createdAt instanceof Date;
+        },
     };
 })()
 
-for (let i = 2; i < 17; i++) {
+for (let i = 2; i < 7; i++) {
     console.log(func.addPhotoPost(
         func.createPhotoPost('description of post #' + i,
             new Date('2018-02-' + parseInt(i / 2, 10)),
-                'Author' + parseInt(i / 3, 10),
-                'images/Pavel_Morozov.jpg',
-                ['' + i, 'hashtag'+i],
-                [''+(i+1), ''+(i+2)]
-            )
+            'Author' + parseInt(i / 3, 10),
+            'images/Pavel_Morozov.jpg',
+            ['' + i, 'hashtag' + i],
+            ['' + (i + 1), '' + (i + 2)]
         )
+    )
     );
 }
 console.log(photoPosts);

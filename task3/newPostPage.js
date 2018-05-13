@@ -9,9 +9,6 @@ return `
 	<div  class="new-post">
 					<div class="toolbar">
 						<div class="post-username">Username</div>
-						<div class="time">
-							2:28 25.02.2018
-						</div>
 					</div>
 					
 					<img class="new-post-img" src="images/Pavel_Morozov.jpg" height="300px" width="250px">

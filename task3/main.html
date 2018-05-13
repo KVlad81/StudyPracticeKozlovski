@@ -1,71 +1,72 @@
 <!DOCTYPE html>
 <html lang='en'>
-	<head>
-		<meta charset='UTF-8'>
-		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-		<link rel="stylesheet" type="text/css" href="styles.css">
-		<link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet"> 
-		<link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope" rel="stylesheet"> 
-		<link rel="icon" href='images/index.png'>
-		<title>Sovietgram</title>
-		
-	</head>
-	<body>
-		<div class='header'>
-			<img src="images/index.png" height='100%'>
-			<div class='soviet-name-header'>
-				Sovietgram
-			</div>
-			<button class='base-button-style new-post-button' style='display : none'>
-				New post
-			</button>
-			<div class='user-info'>
-				<div class='username'>
-					Guest
-				</div>
-				<button class='base-button-style login-button' height='22px'>
-					Login
-				</button>
-			</div>
+
+<head>
+	<meta charset='UTF-8'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope" rel="stylesheet">
+	<link rel="icon" href='images/index.png'>
+	<title>Sovietgram</title>
+
+</head>
+
+<body>
+	<div class='header'>
+		<img src="images/index.png" height='100%'>
+		<div class='soviet-name-header'>
+			Sovietgram
 		</div>
-		<div class='main'>
-			<div class='filters-wrapper'>
-				<div class='filters'>
-					<input class="filter" list='authors-tip' placeholder="Filter by name...">
-					<datalist id='authors-tip'></datalist>
-
-					<input class="filter" type='date' placeholder="Filter by date...">
-
-					<input class="filter" list='hashtags-tip' placeholder="Filter by hashtag...">
-					<datalist id='hashtags-tip'></datalist>
-				</div>
+		<button class='base-button-style new-post-button' style='display : none'>
+			New post
+		</button>
+		<div class='user-info'>
+			<div class='username'>
+				Guest
 			</div>
-			<div class='feed'>
+			<button class='base-button-style login-button' height='22px'>
+				Login
+			</button>
+		</div>
+	</div>
+	<div class='main'>
+		<div class='filters-wrapper'>
+			<div class='filters'>
+				<input class="filter name-filt" placeholder="Filter by name...">
 
+				<input class="filter date-filt" type='date' placeholder="Filter by date...">
+
+				<input class="filter" list='hashtags-tip' placeholder="Filter by hashtag...">
+				<datalist id='hashtags-tip'></datalist>
+				<button class='base-button-style filter-button'>
+					Filtered!
+				</button>
 				<button class='base-button-style load-more-button'>
 					Load more
 				</button>
-				<hr class='emptyline'>
-				<hr class='emptyline'>
-				<hr class='emptyline'>
-				<hr class='emptyline'>
+
 			</div>
 		</div>
-		<div class='footer'>
-			<div class='soviet-name-footer'>
-				Sovietgram
+			<div class='feed'>
 			</div>
-			<div class='my-info'>
-				Head of the party: Kozlovski Vladislav 5 group<br>
-				Mail : kozlovskivlad98@gmail.com
-			</div>
-			<div class='update'>
-				Last update 25.02.2018
-			</div>
+	</div>
+	<div class='footer'>
+		<div class='soviet-name-footer'>
+			Sovietgram
 		</div>
+		<div class='my-info'>
+			Head of the party: Kozlovski Vladislav 5 group
+			<br> Mail : kozlovskivlad98@gmail.com
+		</div>
+		<div class='update'>
+			Last update 25.02.2018
+		</div>
+	</div>
 	<script src="../task4/index.js"></script>
 	<script src="../DOM/dom.js"></script>
 	<script src="actions.js"></script>
 	<script src="newPostPage.js"></script>
-	</body>
+</body>
+
 </html>

@@ -1,4 +1,4 @@
-(function() {
+(function () {
 
 	class PhotoPostsController {
 
@@ -11,9 +11,7 @@
 		}
 
 		showPhotoPostsElement() {
-			let loadMore = this.feed.querySelector('.load-more-button');
-			this.posts.forEach(post => this.feed.insertBefore(this.createPhotoPostElement(post), loadMore));
-			console.log(this.posts);
+			this.posts.forEach(post => this.feed.appendChild(this.createPhotoPostElement(post)));
 			this.setButtonsDisplay();
 		}
 
@@ -58,13 +56,12 @@
 		reload(skip, top, filterConfig) {
 			this.posts = window.posts.getPhotoPosts(skip, top, filterConfig);
 			this.deleteDomPosts();
-			
+
 			this.showPhotoPostsElement();
 		}
 
 		deleteDomPosts() {
-			while(this.feed.childNodes.length > 10) 
-				this.feed.removeChild(this.feed.childNodes[0]);
+			document.querySelector('.feed').innerHTML = '';
 		}
 
 		createPhotoPostElement(photoPost) {
@@ -72,17 +69,16 @@
 			let post = document.createElement('div');
 			post.setAttribute('id', photoPost.id);
 			post.classList.add('post');
-			
+
 			let time = document.createElement('div');
 			time.textContent = photoPost.createdAt.toString().split(' GMT')[0];
 			time.classList.add('time');
 			post.append(time);
 
 			let img = document.createElement('img');
-			img.setAttribute('height', '300px');
-			img.setAttribute('width', '250px');
+			img.className = 'post-img';
 			img.setAttribute('src', photoPost.photoLink);
-			post.append(img);			
+			post.append(img);
 
 
 
@@ -91,14 +87,14 @@
 
 			const like = document.createElement('img');
 			like.classList.add('image-size');
-			if (photoPost.likes.findIndex( user => {
-				return user === this.username;
-			}) !== -1) {
-				like.setAttribute('src', 'images/star.png');	
-			} else {
-				like.setAttribute('src', 'images/star1.png');
-			}
-			
+			// if (photoPost.likes.findIndex(user => {
+			// 	return user === this.username;
+			// }) !== -1) {
+			// 	like.setAttribute('src', 'images/star.png');
+			// } else {
+			like.setAttribute('src', 'images/star1.png');
+			// }
+
 			toolbar.append(like);
 
 			const likeText = document.createElement('span');
@@ -115,7 +111,7 @@
 			del.setAttribute('src', 'images/img_83432.png');
 			toolbar.append(del);
 			post.append(toolbar);
-			del.addEventListener('click', (e)=> {
+			del.addEventListener('click', (e) => {
 				const id = e.target.closest('.post').id;
 				this.removePhotoPost(id);
 			});
@@ -138,7 +134,7 @@
 			img.setAttribute('src', 'images/edit.png');
 			descriptionBar.append(img);
 			post.append(descriptionBar)
-			
+
 
 			return post;
 		}
@@ -171,11 +167,11 @@
 			var descriptionBars = document.body.querySelectorAll('.description-bar');
 			toolbars.forEach(toolbar => {
 				let imgs = toolbar.querySelectorAll('img');
-				imgs.forEach(item => item.style.display = this.isLogIn ? 'block' : 'none'); 
+				imgs.forEach(item => item.style.display = this.isLogIn ? 'block' : 'none');
 			});
 			descriptionBars.forEach(toolbar => {
 				let imgs = toolbar.querySelectorAll('img');
-				imgs.forEach(item => item.style.display = this.isLogIn ? 'block' : 'none'); 
+				imgs.forEach(item => item.style.display = this.isLogIn ? 'block' : 'none');
 			});
 		}
 
@@ -190,19 +186,11 @@
 			}
 		}
 
-
-
 		setFiltersData() {
 			let authors = window.posts.getAuthors();
 			let hashtags = window.posts.getHashtags();
 			let authorsList = document.getElementById('authors-tip');
 			let hashtagsList = document.getElementById('hashtags-tip');
-
-			authors.forEach(author => {
-				let option = document.createElement('option');
-				option.setAttribute('value', author);
-				authorsList.append(option);
-			});
 
 			hashtags.forEach(author => {
 				let option = document.createElement('option');
