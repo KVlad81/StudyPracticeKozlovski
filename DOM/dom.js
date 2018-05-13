@@ -11,38 +11,9 @@
 		}
 
 		showPhotoPostsElement() {
-			let loadMore = this.feed.getElementsByClassName('base-button-style')[0];
-			loadMore.parentNode.removeChild(loadMore);
-			
-			let hrs = this.feed.getElementsByClassName('emptyline');
-			hrs[0].parentNode.removeChild(hrs[0]);
-			hrs[0].parentNode.removeChild(hrs[0]);
-			hrs[0].parentNode.removeChild(hrs[0]);
-			hrs[0].parentNode.removeChild(hrs[0]);
-			
-			this.posts.forEach(post => this.feed.append(this.createPhotoPostElement(post)));
-
-			let newLoadMore = document.createElement('button');
-			newLoadMore.classList.add('base-button-style');
-			newLoadMore.textContent = 'Load more'
-			this.feed.append(newLoadMore);
-
-			let hr = document.createElement('hr')
-			hr.classList.add('emptyline');
-			this.feed.append(hr);
-
-			hr = document.createElement('hr')
-			hr.classList.add('emptyline');
-			this.feed.append(hr);
-			
-			hr = document.createElement('hr')
-			hr.classList.add('emptyline');
-			this.feed.append(hr);
-
-			hr = document.createElement('hr')
-			hr.classList.add('emptyline');
-			this.feed.append(hr);
-
+			let loadMore = this.feed.querySelector('.load-more-button');
+			this.posts.forEach(post => this.feed.insertBefore(this.createPhotoPostElement(post), loadMore));
+			console.log(this.posts);
 			this.setButtonsDisplay();
 		}
 
@@ -55,7 +26,7 @@
 		removePhotoPost(id) {
 			if (window.posts.removePhotoPost(id)) {
 				if (this.posts.some(post => post.id === id)) {
-					this.reload(0, this.posts.length - 1);
+					this.reload(0, this.posts.length, {});
 				}
 			}
 		}
@@ -81,19 +52,19 @@
 
 		downloadPhotoPosts(skip = 0, top = 10, filterConfig) {
 			let extraPosts = window.posts.getPhotoPosts(skip, top, filterConfig);
-			console.log(extraPosts);
 			this.posts = this.posts.concat(extraPosts);
 		}
 
 		reload(skip, top, filterConfig) {
 			this.posts = window.posts.getPhotoPosts(skip, top, filterConfig);
 			this.deleteDomPosts();
+			
 			this.showPhotoPostsElement();
 		}
 
 		deleteDomPosts() {
-			while(feed.firstChild) 
-				feed.removeChild(feed.firstChild);
+			while(this.feed.childNodes.length > 10) 
+				this.feed.removeChild(this.feed.childNodes[0]);
 		}
 
 		createPhotoPostElement(photoPost) {
@@ -115,35 +86,39 @@
 
 
 
-			let toolbar = document.createElement('div');
+			const toolbar = document.createElement('div');
 			toolbar.classList.add('toolbar');
 
-			img = document.createElement('img');
-			img.classList.add('image-size');
+			const like = document.createElement('img');
+			like.classList.add('image-size');
 			if (photoPost.likes.findIndex( user => {
 				return user === this.username;
 			}) !== -1) {
-				img.setAttribute('src', 'images/star.png');	
+				like.setAttribute('src', 'images/star.png');	
 			} else {
-				img.setAttribute('src', 'images/star1.png');
+				like.setAttribute('src', 'images/star1.png');
 			}
 			
-			toolbar.append(img);
+			toolbar.append(like);
 
-			let likeText = document.createElement('span');
+			const likeText = document.createElement('span');
 			likeText.textContent = 'Lyapota';
 			toolbar.append(likeText);
 
-			let author = document.createElement('div');
+			const author = document.createElement('div');
 			author.classList.add('post-username');
 			author.textContent = photoPost.author;
 			toolbar.append(author);
 
-			img = document.createElement('img');
-			img.classList.add('image-size');
-			img.setAttribute('src', 'images/img_83432.png');
-			toolbar.append(img);
+			const del = document.createElement('img');
+			del.classList.add('image-size');
+			del.setAttribute('src', 'images/img_83432.png');
+			toolbar.append(del);
 			post.append(toolbar);
+			del.addEventListener('click', (e)=> {
+				const id = e.target.closest('.post').id;
+				this.removePhotoPost(id);
+			});
 
 			let descriptionBar = document.createElement('div');
 			descriptionBar.classList.add('description-bar');
@@ -174,7 +149,7 @@
 			let username = document.getElementsByClassName('username')[0];
 			let logIn = document.getElementsByClassName('base-button-style')[1];
 			username.textContent = this.user;
-			logIn.textContent = 'Log out';
+			logIn.textContent = 'Logout';
 			this.setButtonsDisplay();
 		}
 
@@ -184,7 +159,7 @@
 			let username = document.getElementsByClassName('username')[0];
 			let logIn = document.getElementsByClassName('base-button-style')[1];
 			username.textContent = 'Guest';
-			logIn.textContent = 'Log in'
+			logIn.textContent = 'Login'
 			this.setButtonsDisplay();
 		}
 

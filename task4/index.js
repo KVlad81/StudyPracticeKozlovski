@@ -1,7 +1,9 @@
 var photoPosts = [];
 
 let func = (function (params) {
-
+    function compareDates(a, b) {
+        return b.createdAt - a.createdAt;
+    }   
     return {
         currentId: 0,
 
@@ -107,6 +109,7 @@ let func = (function (params) {
         addPhotoPost: function (post) {
             if (this.validatePhotoPost(post)) {
                 photoPosts.push(post);
+                photoPosts.sort(compareDates);
                 return true;
             } else {
                 return false;
@@ -152,7 +155,7 @@ let func = (function (params) {
     };
 })()
 
-for (let i = 0; i < 15; i++) {
+for (let i = 2; i < 17; i++) {
     console.log(func.addPhotoPost(
         func.createPhotoPost('description of post #' + i,
             new Date('2018-02-' + parseInt(i / 2, 10)),
@@ -164,7 +167,7 @@ for (let i = 0; i < 15; i++) {
         )
     );
 }
-
+console.log(photoPosts);
 window.posts = func;
 /*
 console.log('\n-func.getPhotoPosts')
