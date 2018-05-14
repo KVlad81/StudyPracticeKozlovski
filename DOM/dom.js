@@ -7,31 +7,34 @@
 			this.isLogIn = false;
 			this.posts = [];
 			this.feed = document.getElementsByClassName('feed')[0];
-			this.setFiltersData();
 		}
 
 		showPhotoPostsElement() {
-			this.posts.forEach(post => this.feed.appendChild(this.createPhotoPostElement(post)));
+			const posts = locStorage.getPosts();
+			posts.forEach(post => this.feed.appendChild(this.createPhotoPostElement(post)));
 			this.setButtonsDisplay();
 		}
 
 		addPhotoPost(post) {
+			const posts = locStorage.getPosts();
 			if (window.posts.addPhotoPost(post)) {
-				this.reload(0, this.posts.length);
+				this.reload(0, posts.length);
 			}
 		}
 
 		removePhotoPost(id) {
+			const posts = locStorage.getPosts();
 			if (window.posts.removePhotoPost(id)) {
-				if (this.posts.some(post => post.id === id)) {
-					this.reload(0, this.posts.length, {});
+				if (posts.some(post => post.id === id)) {
+					this.reload(0, posts.length, {});
 				}
 			}
 		}
 
 		editPhotoPost(id, post) {
+			const posts = locStorage.getPosts();
 			if (window.posts.editPhotoPost(id, post)) {
-				this.posts.forEach(item => {
+				posts.forEach(item => {
 					if (item.id === id) {
 						for (let key in post) {
 							item[key] = post[key];
@@ -49,12 +52,14 @@
 		}
 
 		downloadPhotoPosts(skip = 0, top = 10, filterConfig) {
+			const posts = locStorage.getPosts();
 			let extraPosts = window.posts.getPhotoPosts(skip, top, filterConfig);
-			this.posts = this.posts.concat(extraPosts);
+			posts = posts.concat(extraPosts);
 		}
 
 		reload(skip, top, filterConfig) {
-			this.posts = window.posts.getPhotoPosts(skip, top, filterConfig);
+			const posts = locStorage.getPosts();
+			posts = window.posts.getPhotoPosts(skip, top, filterConfig);
 			this.deleteDomPosts();
 
 			this.showPhotoPostsElement();
@@ -186,18 +191,16 @@
 			}
 		}
 
-		setFiltersData() {
-			let authors = window.posts.getAuthors();
-			let hashtags = window.posts.getHashtags();
-			let authorsList = document.getElementById('authors-tip');
-			let hashtagsList = document.getElementById('hashtags-tip');
+		// setFiltersData() {
+		// 	let authors = window.posts.getAuthors();
+		// 	let authorsList = document.getElementById('authors-tip');
 
-			hashtags.forEach(author => {
-				let option = document.createElement('option');
-				option.setAttribute('value', author);
-				hashtagsList.append(option);
-			});
-		}
+		// 	hashtags.forEach(author => {
+		// 		let option = document.createElement('option');
+		// 		option.setAttribute('value', author);
+		// 		hashtagsList.append(option);
+		// 	});
+		// }
 	}
 
 	window.photoPostsController = new PhotoPostsController();

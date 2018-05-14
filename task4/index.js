@@ -1,4 +1,3 @@
-var photoPosts = [];
 
 let func = (function (params) {
     function compareDates(a, b) {
@@ -47,6 +46,7 @@ let func = (function (params) {
         },
 
         getPhotoPosts: function (skip = 0, top = 10, filterConfig) {
+            const photoPosts = locStorage.getPosts();
             if (arguments.length < 3) {
                 return photoPosts.slice(skip, skip + top);
             } else {
@@ -67,12 +67,14 @@ let func = (function (params) {
         },
 
         getPhotoPost: function (id) {
+            const photoPosts = locStorage.getPosts();
             return photoPosts.find(function (element) {
                 return element.id === id;
             })
         },
 
         getAuthors: function () {
+            const photoPosts = locStorage.getPosts();
             let authors = new Set();
             photoPosts.filter(post => {
                 if (!authors.has(post.author))
@@ -82,6 +84,7 @@ let func = (function (params) {
         },
 
         getHashtags: function () {
+            const photoPosts = locStorage.getPosts();
             let hashTags = new Set();
             photoPosts.filter(post => {
                 post.hashTags.forEach(hashTag => {
@@ -103,8 +106,9 @@ let func = (function (params) {
 
         addPhotoPost: function (post) {
             if (this.validatePhotoPost(post)) {
-                photoPosts.push(post);
-                photoPosts.sort(compareDates);
+                // photoPosts.push(post);
+                // photoPosts.sort(compareDates);
+                locStorage.pushPost(post);
                 return true;
             } else {
                 return false;
@@ -123,11 +127,14 @@ let func = (function (params) {
         },
 
         removePhotoPost: function (id) {
+            const photoPosts = locStorage.getPosts();
+
             let index = photoPosts.findIndex(function (element) {
                 return element.id === id;
             });
             if (index > -1) {
                 photoPosts.splice(index, 1);
+                locStorage.savePosts(photoPosts);
                 return true;
             } else {
                 return false;
@@ -166,7 +173,7 @@ for (let i = 2; i < 7; i++) {
     )
     );
 }
-console.log(photoPosts);
+
 window.posts = func;
 /*
 console.log('\n-func.getPhotoPosts')
