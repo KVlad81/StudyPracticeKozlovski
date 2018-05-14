@@ -58,7 +58,7 @@
 		}
 
 		reload(skip, top, filterConfig) {
-			const posts = locStorage.getPosts();
+			let posts = locStorage.getPosts();
 			posts = window.posts.getPhotoPosts(skip, top, filterConfig);
 			this.deleteDomPosts();
 

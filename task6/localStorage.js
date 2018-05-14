@@ -22,7 +22,7 @@ const locStorage = (function () {
             posts.forEach(element => {
                 element.createdAt = new Date(element.createdAt);
             });
-            posts.push(photoPost);
+            posts.push(post);
             posts.sort(compareDates);
 
             let poststring = JSON.stringify(posts);
