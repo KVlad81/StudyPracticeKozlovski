@@ -1,0 +1,22 @@
+{
+  "name": "vlad",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KVlad81/StudyPracticeKozlovski.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KVlad81/StudyPracticeKozlovski/issues"
+  },
+  "homepage": "https://github.com/KVlad81/StudyPracticeKozlovski#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
