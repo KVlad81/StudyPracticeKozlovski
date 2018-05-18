@@ -1,3 +1,5 @@
+const jsonStorage = require('./jsonStorage.js');
+jsonStorage.init();
 
 let func = (function (params) {
     function compareDates(a, b) {
@@ -46,7 +48,8 @@ let func = (function (params) {
         },
 
         getPhotoPosts: function (skip = 0, top = 10, filterConfig) {
-            const photoPosts = locStorage.getPosts();
+            const photoPosts = jsonStorage.getPosts();
+            console.log(photoPosts);
             if (arguments.length < 3) {
                 return photoPosts.slice(skip, skip + top);
             } else {
@@ -67,14 +70,14 @@ let func = (function (params) {
         },
 
         getPhotoPost: function (id) {
-            const photoPosts = locStorage.getPosts();
+            const photoPosts = jsonStorage.getPosts();
             return photoPosts.find(function (element) {
                 return element.id === id;
             })
         },
 
         getAuthors: function () {
-            const photoPosts = locStorage.getPosts();
+            const photoPosts = jsonStorage.getPosts();
             let authors = new Set();
             photoPosts.filter(post => {
                 if (!authors.has(post.author))
@@ -84,7 +87,7 @@ let func = (function (params) {
         },
 
         getHashtags: function () {
-            const photoPosts = locStorage.getPosts();
+            const photoPosts = jsonStorage.getPosts();
             let hashTags = new Set();
             photoPosts.filter(post => {
                 post.hashTags.forEach(hashTag => {
@@ -108,7 +111,7 @@ let func = (function (params) {
             if (this.validatePhotoPost(post)) {
                 // photoPosts.push(post);
                 // photoPosts.sort(compareDates);
-                locStorage.pushPost(post);
+                jsonStorage.pushPost(post);
                 return true;
             } else {
                 return false;
@@ -116,10 +119,12 @@ let func = (function (params) {
         },
 
         editPhotoPost: function (id, newPost) {
-            let oldPost = this.getPhotoPost(id);
+            const photoPosts = jsonStorage.getPhotoPost();
+            let oldPost = photoPosts.find((el) => {return id === el.id});
             if (oldPost !== undefined) {
                 if (this.validateEditPost(newPost)) {
                     Object.assign(oldPost, newPost);
+                    jsonStorage.savePosts(photoPosts);
                     return true;
                 }
             }
@@ -127,14 +132,14 @@ let func = (function (params) {
         },
 
         removePhotoPost: function (id) {
-            const photoPosts = locStorage.getPosts();
+            const photoPosts = jsonStorage.getPosts();
 
             let index = photoPosts.findIndex(function (element) {
                 return element.id === id;
             });
             if (index > -1) {
                 photoPosts.splice(index, 1);
-                locStorage.savePosts(photoPosts);
+                jsonStorage.savePosts(photoPosts);
                 return true;
             } else {
                 return false;
@@ -161,20 +166,8 @@ let func = (function (params) {
     };
 })()
 
-for (let i = 2; i < 7; i++) {
-    console.log(func.addPhotoPost(
-        func.createPhotoPost('description of post #' + i,
-            new Date('2018-02-' + parseInt(i / 2, 10)),
-            'Author' + parseInt(i / 3, 10),
-            'images/Pavel_Morozov.jpg',
-            ['' + i, 'hashtag' + i],
-            ['' + (i + 1), '' + (i + 2)]
-        )
-    )
-    );
-}
 
-window.posts = func;
+module.exports = func;
 /*
 console.log('\n-func.getPhotoPosts')
 console.log('top 10 posts:');

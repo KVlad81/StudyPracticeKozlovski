@@ -1,0 +1,77 @@
+[
+    {
+        "id": "28",
+        "description": "description of post #5",
+        "createdAt": "2019-02-01T21:00:00.000Z",
+        "author": "Author2",
+        "photoLink": "images/Pavel_Morozov.jpg",
+        "hashTags": [
+            "5",
+            "hashtag5"
+        ],
+        "likes": [
+            "6",
+            "7"
+        ]
+    },
+    {
+        "id": "3",
+        "description": "description of post #5",
+        "createdAt": "2018-02-01T21:00:00.000Z",
+        "author": "Author1",
+        "photoLink": "images/Pavel_Morozov.jpg",
+        "hashTags": [
+            "5",
+            "hashtag5"
+        ],
+        "likes": [
+            "6",
+            "7"
+        ]
+    },
+    {
+        "id": "2",
+        "description": "description of post #4",
+        "createdAt": "2018-02-01T21:00:00.000Z",
+        "author": "Author1",
+        "photoLink": "images/Pavel_Morozov.jpg",
+        "hashTags": [
+            "4",
+            "hashtag4"
+        ],
+        "likes": [
+            "5",
+            "6"
+        ]
+    },
+    {
+        "id": "1",
+        "description": "description of post #3",
+        "createdAt": "2018-01-31T21:00:00.000Z",
+        "author": "Author1",
+        "photoLink": "images/Pavel_Morozov.jpg",
+        "hashTags": [
+            "3",
+            "hashtag3"
+        ],
+        "likes": [
+            "4",
+            "5"
+        ]
+    },
+    {
+        "id": "0",
+        "description": "description of post #2",
+        "createdAt": "2018-01-31T21:00:00.000Z",
+        "author": "Author0",
+        "photoLink": "images/Pavel_Morozov.jpg",
+        "hashTags": [
+            "2",
+            "hashtag2"
+        ],
+        "likes": [
+            "3",
+            "4"
+        ]
+    }
+]

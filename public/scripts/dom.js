@@ -10,21 +10,21 @@
 		}
 
 		showPhotoPostsElement() {
-			const posts = locStorage.getPosts();
+			const posts = jsonStorage.getPosts();
 			posts.forEach(post => this.feed.appendChild(this.createPhotoPostElement(post)));
 			this.setButtonsDisplay();
 		}
 
 		addPhotoPost(post) {
-			const posts = locStorage.getPosts();
-			if (window.posts.addPhotoPost(post)) {
+			const posts = jsonStorage.getPosts();
+			if (Posts.addPhotoPost(post)) {
 				this.reload(0, posts.length);
 			}
 		}
 
 		removePhotoPost(id) {
-			const posts = locStorage.getPosts();
-			if (window.posts.removePhotoPost(id)) {
+			const posts = jsonStorage.getPosts();
+			if (Posts.removePhotoPost(id)) {
 				if (posts.some(post => post.id === id)) {
 					this.reload(0, posts.length, {});
 				}
@@ -32,8 +32,8 @@
 		}
 
 		editPhotoPost(id, post) {
-			const posts = locStorage.getPosts();
-			if (window.posts.editPhotoPost(id, post)) {
+			const posts = jsonStorage.getPosts();
+			if (Posts.editPhotoPost(id, post)) {
 				posts.forEach(item => {
 					if (item.id === id) {
 						for (let key in post) {
@@ -52,14 +52,14 @@
 		}
 
 		downloadPhotoPosts(skip = 0, top = 10, filterConfig) {
-			const posts = locStorage.getPosts();
-			let extraPosts = window.posts.getPhotoPosts(skip, top, filterConfig);
+			const posts = jsonStorage.getPosts();
+			let extraPosts = Posts.getPhotoPosts(skip, top, filterConfig);
 			posts = posts.concat(extraPosts);
 		}
 
 		reload(skip, top, filterConfig) {
-			let posts = locStorage.getPosts();
-			posts = window.posts.getPhotoPosts(skip, top, filterConfig);
+			let posts = jsonStorage.getPosts();
+			posts =Posts.getPhotoPosts(skip, top, filterConfig);
 			this.deleteDomPosts();
 
 			this.showPhotoPostsElement();
@@ -181,7 +181,7 @@
 		}
 
 		setLike(id) {
-			let res = window.posts.setLike(this.user, id);
+			let res = Posts.setLike(this.user, id);
 			let post = document.getElementById(id);
 			let likeImages = post.getElementsByClassName('image-size')[0];
 			if (res) {
@@ -191,16 +191,6 @@
 			}
 		}
 
-		// setFiltersData() {
-		// 	let authors = window.posts.getAuthors();
-		// 	let authorsList = document.getElementById('authors-tip');
-
-		// 	hashtags.forEach(author => {
-		// 		let option = document.createElement('option');
-		// 		option.setAttribute('value', author);
-		// 		hashtagsList.append(option);
-		// 	});
-		// }
 	}
 
 	window.photoPostsController = new PhotoPostsController();
