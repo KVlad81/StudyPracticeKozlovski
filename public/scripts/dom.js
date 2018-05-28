@@ -1,25 +1,29 @@
 (function () {
 
 
-	function AJAX(method, url, callback, body) {
-		const xhr = new XMLHttpRequest();
-		xhr.open(method, url, false);
+	function AJAX(method, url, body) {
+		return new Promise((res, rej) => {
 
-		xhr.setRequestHeader('Content-type', 'application/json');
+			const xhr = new XMLHttpRequest();
+			xhr.open(method, url, false);
 
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState !== 4) {
-				return;
-			}
-			if (xhr.status !== 200) {
-				console.log(xhr.status + ': ' + xhr.statusText);
-			}
-			else {
-				callback(xhr.response);
-			}
-		}
+			xhr.setRequestHeader('Content-type', 'application/json');
 
-		xhr.send(JSON.stringify(body));
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState !== 4) {
+					return;
+				}
+				if (xhr.status !== 200) {
+					console.log(xhr.status + ': ' + xhr.statusText);
+				}
+				else {
+					res(xhr.response);
+				}
+			}
+
+			xhr.send(JSON.stringify(body));
+		})
+
 	}
 
 	class PhotoPostsController {
@@ -34,52 +38,71 @@
 
 		showPhotoPostsElement(filterConfig) {
 			let posts;
-			function callback(response) {
-				posts = JSON.parse(response);
-			}
+			// function callback(response) {
+			// 	posts = JSON.parse(response);
+			// }
 
-			AJAX('POST', 'getPhotoPosts', callback, filterConfig);
-			posts.forEach(post => this.feed.appendChild(this.createPhotoPostElement(post)));
-			this.setButtonsDisplay();
+			AJAX('POST', 'getPhotoPosts', filterConfig).then((response) => {
+				posts = JSON.parse(response);
+				posts.forEach(post => this.feed.appendChild(this.createPhotoPostElement(post)));
+				this.setButtonsDisplay();
+			});
+
 		}
 
 		addPhotoPost(post) {
-			function callback(response) {
-				console.log(response);
-				this.reload(0, 10);
-			}
-			callback = callback.bind(this);
+			// function callback(response) {
+			// 	console.log(response);
+			// 	this.reload(0, 10);
+			// }
+			// callback = callback.bind(this);
 
-			console.log(post);
-			AJAX('POST', '/addPhotoPost', callback, post);
+			//			console.log(post);
+			AJAX('POST', '/addPhotoPost', post)
+				.then(() => {
+					this.reload(0, 10);
+				});
 		}
 
 
 		removePhotoPost(id) {
-			function callback(response) {
-				this.reload(0, 10);
-			}
-			callback = callback.bind(this);
+			// function callback(response) {
+			// 	this.reload(0, 10);
+			// }
+			// callback = callback.bind(this);
 
-			AJAX('DELETE', `/removePhotoPost?id=${id}`, callback);
+			AJAX('DELETE', `/removePhotoPost?id=${id}`)
+				.then(() => {
+					this.reload(0, 10);
+				});
 
 		}
 
 		editPhotoPost(id, post) {
 			const posts = Array.from(document.querySelectorAll(".post"));
-			function callback(response) {
-				posts.forEach(item => {
-					if (item.id === id) {
-						for (let key in post) {
-							item[key] = post[key];
-						}
-						this.replaceDomPost(item);
-					}
-				});
-			}
-			callback = callback.bind(this);
+			// function callback(response) {
+			// 	posts.forEach(item => {
+			// 		if (item.id === id) {
+			// 			for (let key in post) {
+			// 				item[key] = post[key];
+			// 			}
+			// 			this.replaceDomPost(item);
+			// 		}
+			// 	});
+			// }
+			// callback = callback.bind(this);
 
-			AJAX('PUT', `/editPhotoPost?id=${id}`, callback, post);
+			AJAX('PUT', `/editPhotoPost?id=${id}`, post)
+				.then(() => {
+					posts.forEach(item => {
+						if (item.id === id) {
+							for (let key in post) {
+								item[key] = post[key];
+							}
+							this.replaceDomPost(item);
+						}
+					});
+				});
 
 
 		}
@@ -252,13 +275,13 @@
 		// 		hashtagsList.append(option);
 		// 	});
 		// }
-	
+
 	}
 
-	
+
 	window.photoPostsController = new PhotoPostsController();
 	window.photoPostsController.reload();
-	if(localStorage.getItem('user')!=='null'){
+	if (localStorage.getItem('user') !== 'null') {
 		window.photoPostsController.logIn();
 	}
 })();
