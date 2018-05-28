@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/KVlad81/StudyPracticeKozlovski#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "n": "^2.1.11",
+    "nodemon": "^1.17.5"
   }
 }

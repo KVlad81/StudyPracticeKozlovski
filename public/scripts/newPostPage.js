@@ -1,4 +1,4 @@
-const newPostPage = (function(){
+const newPostPage = function(description,hashtags, link){
 return `
 <div class="new-post-page">
 	<div class="new-post__buttons">
@@ -11,20 +11,16 @@ return `
 						<div class="post-username">Username</div>
 					</div>
 					
-					<img class="new-post-img" src="images/Pavel_Morozov.jpg" height="300px" width="250px">
+					<img class="new-post-img" src=${link?link:'images/Pavel_Morozov.jpg'} height="300px" width="250px">
 					<input class="new-post-file" type="file"> </input>
 
 					<div class="description-bar">
-						<input placeholder="Add description" class="description">
-							
-						</input>
-						<input placeholder="Add hashtags" class="hashtags">
-							
-						</input>
+						<textarea placeholder="Add description" class="description">${description?description:''}</textarea>
+						<textarea placeholder="Add hashtags" class="hashtags">${hashtags?hashtags:''}</textarea>
 						
 					</div>
 				</div>
 </div>
 
 `
-})();
+};

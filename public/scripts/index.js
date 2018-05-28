@@ -1,7 +1,7 @@
 const jsonStorage = require('./jsonStorage.js');
 jsonStorage.init();
 
-let func = (function (params) {
+const func = (function (params) {
     function compareDates(a, b) {
         return b.createdAt - a.createdAt;
     }
@@ -49,16 +49,16 @@ let func = (function (params) {
 
         getPhotoPosts: function (skip = 0, top = 10, filterConfig) {
             const photoPosts = jsonStorage.getPosts();
-            console.log(photoPosts);
-            if (arguments.length < 3) {
+            if (Object.keys(filterConfig).length === 0) {
                 return photoPosts.slice(skip, skip + top);
             } else {
                 let extraPosts = photoPosts.slice(skip, skip + top).filter(function (post) {
-                    return !((filterConfig.hasOwnProperty('author') &&
+                    console.log(new Date(filterConfig.createdAt)<= post.createdAt);
+                    return !((filterConfig.hasOwnProperty('author')&&filterConfig.author &&
                         post.author !== filterConfig.author) ||
-                        (filterConfig.hasOwnProperty('createdAt') &&
-                            (!(filterConfig.createdAt instanceof Date) ||
-                                filterConfig.createdAt >= post.createdAt)) ||
+                        (filterConfig.hasOwnProperty('createdAt') && filterConfig.createdAt &&
+                            (!(new Date(filterConfig.createdAt) instanceof Date) ||
+                                new Date(filterConfig.createdAt) >= post.createdAt)) ||
                         (filterConfig.hasOwnProperty('hashTags') &&
                             (!(filterConfig.hashTags instanceof Array) ||
                                 !filterConfig.hashTags.every(function (hashTag) {
@@ -99,6 +99,13 @@ let func = (function (params) {
         },
 
         validatePhotoPost: function (post) {
+            console.log(post);
+            console.log(typeof post.id === 'string', this.validateDescription(post.description),
+                this.validateCreatedAt(post.createdAt),
+                this.validateAuthor(post.author),
+                this.validatePhotoLink(post.photoLink),
+                this.validateHashtags(post.hashTags));
+
             return (typeof post.id === 'string') &&
                 this.validateDescription(post.description) &&
                 this.validateCreatedAt(post.createdAt) &&
@@ -119,8 +126,8 @@ let func = (function (params) {
         },
 
         editPhotoPost: function (id, newPost) {
-            const photoPosts = jsonStorage.getPhotoPost();
-            let oldPost = photoPosts.find((el) => {return id === el.id});
+            const photoPosts = jsonStorage.getPosts();
+            let oldPost = photoPosts.find((el) => el.id === id);
             if (oldPost !== undefined) {
                 if (this.validateEditPost(newPost)) {
                     Object.assign(oldPost, newPost);
