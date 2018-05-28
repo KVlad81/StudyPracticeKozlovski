@@ -49,6 +49,7 @@ const func = (function (params) {
 
         getPhotoPosts: function (skip = 0, top = 10, filterConfig) {
             const photoPosts = jsonStorage.getPosts();
+            skip=0; top=10;
             if (Object.keys(filterConfig).length === 0) {
                 return photoPosts.slice(skip, skip + top);
             } else {
